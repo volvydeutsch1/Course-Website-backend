@@ -8,11 +8,11 @@
     public function index(){
       //Set Data
       $data = [
-        'title' => 'Welcome To TraversyMVC'
+          'title' => 'Omnivox'
       ];
 
-      // Load homepage api
-      echo json_encode($data);
+      // Load homepage view (api)
+      $this->view($data);
     }
 
     public function about(){
@@ -21,7 +21,7 @@
         'version' => '1.0.0'
       ];
 
-      // Load about api
-      echo json_encode($data);
+      // Load about view (api)
+      $this->view($data);
     }
   }
