@@ -1,27 +1,25 @@
 <?php
-  class Pages extends Controller{
-    public function __construct(){
-        $this->teachersModel = $this->model('Teacher');
+class Pages extends Controller
+{
+
+    public function __construct()
+    {
+        $this->initialModel = $this->model('Initial');
     }
 
-    // Load Homepage
+    // Load Homepage (announcements)
     public function index(){
-      //Set Data
-      $data = [
-          'title' => 'Omnivox'
-      ];
-
-      // Load homepage view (api)
-      $this->view($data);
+        $this->getAnnouncements();
     }
 
-    public function about(){
-      //Set Data
-      $data = [
-        'version' => '1.0.0'
-      ];
+    // getting all announcements
+    public function getAnnouncements()
+    {
+        //Set Data
+        $data = $this->initialModel->getAnnouncements();
 
-      // Load about view (api)
-      $this->view($data);
+        // Load homepage / announcements view (api)
+        $this->view($data);
     }
-  }
+
+}
