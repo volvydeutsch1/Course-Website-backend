@@ -5,27 +5,6 @@
         $this->teachersModel = $this->model('Teacher');
     }
 
-    // Load Homepage
-    public function index(){
-      //Set Data
-      $data = [
-          'title' => 'Omnivox'
-      ];
-
-      // Load homepage view (api)
-      $this->view($data);
-    }
-
-    public function about(){
-      //Set Data
-      $data = [
-        'version' => '1.0.0'
-      ];
-
-      // Load about view (api)
-      $this->view($data);
-    }
-
     public function register(){
 
         // Sanitize POST data
@@ -43,4 +22,10 @@
         // Loading teachers id to view
         $this->view($id);
     }
+
+//    public function login($data){
+//
+//        // Sanitize POST data
+//        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+//    }
   }
