@@ -16,7 +16,13 @@ class Teacher {
 
         // Execute
         if($this->db->execute()){
-            return true;
+            // return the new teacherID
+            $this->db->query('SELECT * FROM teachers WHERE name = :name AND password = :password');
+            // Bind values
+            $this->db->bind(':name', $data['name']);
+            $this->db->bind(':password', $data['password']);
+            $row = $this->db->single();
+            return $row->id;
         } else {
             return false;
         }
