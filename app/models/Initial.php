@@ -9,7 +9,7 @@ class Initial {
 
     // retrieve all announcements with  newest to oldest
     public function getAnnouncements() {
-        $this->db->query("SELECT * FROM announcements a, teachers t WHERE a.teacherid = t.id ORDER BY date DESC");
+        $this->db->query("SELECT t.name, DATE_FORMAT(a.date, '%b %d %Y %l:%i%p') AS date, a.body FROM announcements a, teachers t WHERE a.teacherid = t.id ORDER BY date DESC");
 
         return $this->db->resultSet();
     }
@@ -29,7 +29,7 @@ class Initial {
         }
     }
     
-    // delete announcement row for the announcement id
+    // delete announcement 
     public function deleteAnnouncement($id) {
         $this->db-query("DELETE FROM announcements WHERE id = :id");
         // bind param
