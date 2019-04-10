@@ -54,7 +54,7 @@ class Student {
 
     // add new submission
     public function addSubmission($data) {
-        $this->db->query("INSERT INTO submissions (studentid, assignmentid, datesubmitted, text) VALUES(:studentid, :assignmentid, CURRENT_DATE, :text)");
+        $this->db->query("INSERT INTO submissions (studentid, assignmentid, datesubmitted, text) VALUES(:studentid, :assignmentid, CURRENT_TIMESTAMP, :text)");
         // Bind values
         $this->db->bind(':studentid', $data['studentid']);
         $this->db->bind(':assignmentid', $data['assignmentid']);
