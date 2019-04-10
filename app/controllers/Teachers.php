@@ -54,36 +54,64 @@ class Teachers extends Controller{
 
     // add new announcement
     public function addAnnouncement($data) {
+        // Set Data
+        $data = $this->teachersModel->addAnnouncement($data);
 
+        // Load homepage / announcements view (api)
+        $this->view($data);
     }
 
     // delete announcement
     public function deleteAnnouncement($id) {
+        // Set Data
+        $data = $this->teachersModel->deleteAnnouncement($id);
 
+        // Load homepage / announcements view (api)
+        $this->view($data);
     }
 
     // add new assignment
     public function addAssignment($data) {
+        // Set Data
+        $data = $this->teachersModel->addAssignment($data);
 
+        // Load homepage / announcements view (api)
+        $this->view($data);
     }
 
     // delete announcement
     public function deleteAssignment($id) {
+        // Set Data
+        $data = $this->teachersModel->deleteAssignment($id);
 
+        // Load homepage / announcements view (api)
+        $this->view($data);
     }
 
     // list of assignments by TeacherID
     public function listAssignments($id) {
+        // Set Data
+        $data = $this->teachersModel->listAssignments($id);
 
+        // Load homepage / announcements view (api)
+        $this->view($data);
     }
 
     // list of student submissions for AssignmentID
     public function listSubmissions($id) {
+        // Set Data
+        $data = $this->teachersModel->listSubmissions($id);
 
+        // Load homepage / announcements view (api)
+        $this->view($data);
     }
 
     // update submission grade
     public function updateSubmission($data) {
+        // Set Data
+        $data = $this->teachersModel->updateSubmission($data);
 
+        // Load homepage / announcements view (api)
+        $this->view($data);
     }
 }

@@ -56,7 +56,11 @@ class Students extends Controller
 
     // add new submission
     public function addSubmission($data) {
+        //Set Data
+        $data = $this->studentsModel->addSubmission($data);
 
+        // Load homepage / announcements view (api)
+        $this->view($data);
     }
 
 
