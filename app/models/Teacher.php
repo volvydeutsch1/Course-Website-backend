@@ -27,22 +27,26 @@ class Teacher {
             return false;
         }
     }
-    
+
     // teacher login
     public function login($data){
         $this->db->query('SELECT * FROM teachers WHERE id = :id AND password = :password');
 
         // Bind values
-        $this->db->bind(':name', $data['name']);
+        $this->db->bind(':id', $data['id']);
         $this->db->bind(':password', $data['password']);
 
         $row = $this->db->single();
 
-        $password = $data['password'];
-        $hashed_password = $row->password;
-        if(password_verify($password, $hashed_password)){
-            return $row;
-        } else {
+        if($row){
+            $password = $data['password'];
+            $hashed_password = $row->password;
+            if(password_verify($password, $hashed_password)){
+                return $row;
+            } else {
+                return false;
+            }
+        }else{
             return false;
         }
     }
@@ -95,7 +99,7 @@ class Teacher {
         }
     }
 
-    
+
     // delete announcement 
     public function deleteAssignment($id) {
         $this->db-query("DELETE FROM assignments WHERE id = :id");
@@ -109,7 +113,7 @@ class Teacher {
             return false;
         }
     }
-    
+
 
     // list of assignments by TeacherID
     public function listAssignments($id) {
@@ -121,18 +125,18 @@ class Teacher {
         return $this->db->resultSet();
     }
 
-    
+
     // list of student submissions for AssignmentID
     public function listSubmissions($id) {
         $this->db->query("SELECT * FROM students st LEFT JOIN (SELECT * FROM submissions s WHERE s.assignmentid = :id) AS n ON st.id = n.studentid ORDER BY st.name");
-        
+
         // Bind values
         $this->db->bind(':id', $id);
 
         return $this->db->resultSet();
     }
-    
-    
+
+
     // update submission grade
     public function updateSubmission($data) {
         $this->db->query("UPDATE submissions set grade = :grade WHERE id = :id");
@@ -144,6 +148,6 @@ class Teacher {
         } else {
             return false;
         }
-        
+
     }
 }

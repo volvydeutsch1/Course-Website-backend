@@ -1,8 +1,12 @@
 <?php
-  class Teachers extends Controller{
+class Teachers extends Controller{
 
     public function __construct(){
         $this->teachersModel = $this->model('Teacher');
+    }
+
+    public function index(){
+
     }
 
     public function register(){
@@ -23,10 +27,15 @@
         $this->view($id);
     }
 
-    public function login($data){
+    public function login(){
 
         // Sanitize POST data
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        $data =[
+            'id' => trim($_POST['id']),
+            'password' => trim($_POST['password'])
+        ];
 
         // Getting back all info of teacher on success or false
         $teacher = $this->teachersModel->login($data);
@@ -42,38 +51,38 @@
         unset($_SESSION["teacher_name"]);
     }
 
-      // add new announcement
-      public function addAnnouncement($data) {
+    // add new announcement
+    public function addAnnouncement($data) {
 
-      }
+    }
 
-      // delete announcement
-      public function deleteAnnouncement($id) {
+    // delete announcement
+    public function deleteAnnouncement($id) {
 
-      }
+    }
 
-      // add new assignment
-      public function addAssignment($data) {
+    // add new assignment
+    public function addAssignment($data) {
 
-      }
+    }
 
-      // delete announcement
-      public function deleteAssignment($id) {
+    // delete announcement
+    public function deleteAssignment($id) {
 
-      }
+    }
 
-      // list of assignments by TeacherID
-      public function listAssignments($id) {
+    // list of assignments by TeacherID
+    public function listAssignments($id) {
 
-      }
+    }
 
-      // list of student submissions for AssignmentID
-      public function listSubmissions($id) {
+    // list of student submissions for AssignmentID
+    public function listSubmissions($id) {
 
-      }
+    }
 
-      // update submission grade
-      public function updateSubmission($data) {
+    // update submission grade
+    public function updateSubmission($data) {
 
-      }
-  }
+    }
+}

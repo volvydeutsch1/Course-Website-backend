@@ -34,16 +34,19 @@ class Student {
         $this->db->query('SELECT * FROM students WHERE id = :id AND password = :password');
 
         // Bind values
-        $this->db->bind(':name', $data['name']);
+        $this->db->bind(':id', $data['id']);
         $this->db->bind(':password', $data['password']);
 
         $row = $this->db->single();
-
-        $password = $data['password'];
-        $hashed_password = $row->password;
-        if(password_verify($password, $hashed_password)){
-            return $row;
-        } else {
+        if($row){
+            $password = $data['password'];
+            $hashed_password = $row->password;
+            if(password_verify($password, $hashed_password)){
+                return $row;
+            } else {
+                return false;
+            }
+        }else{
             return false;
         }
     }
@@ -65,7 +68,7 @@ class Student {
         }
     }
 
-    
+
     public function listAssignments($id) {
         $this->db->query("SELECT * FROM assignments a LEFT JOIN (SELECT * FROM submissions s WHERE s.studentid = :id) AS n ON a.id = n.assignmentid");
         // Bind values
@@ -74,5 +77,5 @@ class Student {
         return $this->db->resultSet();
     }
 
-    
+
 }
