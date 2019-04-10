@@ -30,7 +30,7 @@ class Core {
         if(isset($url[1])){
             // Check if method/function exists in current controller class
             if(method_exists($this->currentController, $url[1])){
-                // Set current method if it exsists
+                // Set current method if it exists
                 $this->currentMethod = $url[1];
                 // Unset 1 index
                 unset($url[1]);

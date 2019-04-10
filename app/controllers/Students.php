@@ -61,6 +61,10 @@ class Students extends Controller
 
 
     public function listAssignments($id) {
+        //Set Data
+        $data = $this->studentsModel->listAssignments($id);
 
+        // Load homepage / announcements view (api)
+        $this->view($data);
     }
 }
