@@ -70,7 +70,7 @@ class Student {
 
 
     public function listAssignments($id) {
-        $this->db->query("SELECT * FROM teachers t, assignments a LEFT JOIN (SELECT * FROM submissions s WHERE s.studentid = :id) AS n ON a.id = n.assignmentid where a.teacherid = t.id");
+        $this->db->query("SELECT * FROM teachers t, assignments a LEFT JOIN (SELECT grade, assignmentid, DATE_FORMAT(s.datesubmitted, '%b %d %Y  -  %h:%i %p') AS datesubmitted FROM submissions s WHERE s.studentid = :id) AS n ON a.id = n.assignmentid where a.teacherid = t.id");
         // Bind values
         $this->db->bind(':id', $id);
 
