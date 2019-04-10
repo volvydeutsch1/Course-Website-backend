@@ -43,6 +43,7 @@ class Teachers extends Controller{
         if($teacher){
             $_SESSION["teacher_id"] = $teacher->id;
             $_SESSION["teacher_name"] = $teacher->name;
+            $this->view( ['accountType' => 'teacher', 'id' => $teacher->id, 'name' => $teacher->name] );
         }
     }
 

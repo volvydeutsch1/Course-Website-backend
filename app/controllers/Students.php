@@ -45,6 +45,7 @@ class Students extends Controller
         if ($student) {
             $_SESSION["student_id"] = $student->id;
             $_SESSION["student_name"] = $student->name;
+            $this->view( ['accountType' => 'student', 'id' => $student->id, 'name' => $student->name] );
         }
     }
 
