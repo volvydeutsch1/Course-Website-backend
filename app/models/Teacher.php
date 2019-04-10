@@ -9,6 +9,7 @@ class Teacher {
 
     // register teacher
     public function register($data) {
+        $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
         $this->db->query('INSERT INTO teachers (name, password) VALUES(:name, :password)');
         // Bind values
         $this->db->bind(':name', $data['name']);
@@ -30,14 +31,12 @@ class Teacher {
 
     // teacher login
     public function login($data){
-        $this->db->query('SELECT * FROM teachers WHERE id = :id AND password = :password');
+        $this->db->query('SELECT * FROM teachers WHERE id = :id');
 
         // Bind values
         $this->db->bind(':id', $data['id']);
-        $this->db->bind(':password', $data['password']);
 
         $row = $this->db->single();
-
         if($row){
             $password = $data['password'];
             $hashed_password = $row->password;

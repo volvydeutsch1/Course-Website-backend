@@ -9,6 +9,7 @@ class Student {
 
     // register student
     public function register($data){
+        $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
         $this->db->query('INSERT INTO students (name, password) VALUES(:name, :password)');
         // Bind values
         $this->db->bind(':name', $data['name']);
@@ -17,7 +18,7 @@ class Student {
         // Execute
         if($this->db->execute()){
             // return the new studentID
-            $this->db->query('SELECT * FROM students WHERE name = :name AND password = :password');
+            $this->db->query('SELECT * FROM students WHERE name = :name AND password = :password ORDER BY id DESC LIMIT 1');
             // Bind values
             $this->db->bind(':name', $data['name']);
             $this->db->bind(':password', $data['password']);
@@ -31,11 +32,10 @@ class Student {
 
     // student login
     public function login($data){
-        $this->db->query('SELECT * FROM students WHERE id = :id AND password = :password');
+        $this->db->query('SELECT * FROM students WHERE id = :id');
 
         // Bind values
         $this->db->bind(':id', $data['id']);
-        $this->db->bind(':password', $data['password']);
 
         $row = $this->db->single();
         if($row){
