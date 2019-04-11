@@ -55,7 +55,16 @@ class Students extends Controller
     }
 
     // add new submission
-    public function addSubmission($data) {
+    public function addSubmission() {
+        // Sanitize POST data
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        // Init data from POST input
+        $data = [
+            'studentid' => trim($_POST['studentid']),
+            'assignmentid' => trim($_POST['assignmentid']),
+            'text' => trim($_POST['text'])
+        ];
         //Set Data
         $data = $this->studentsModel->addSubmission($data);
 
@@ -65,6 +74,7 @@ class Students extends Controller
 
 
     public function listAssignments($id) {
+        
         //Set Data
         $data = $this->studentsModel->listAssignments($id);
 

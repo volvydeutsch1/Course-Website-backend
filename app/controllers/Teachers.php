@@ -53,7 +53,14 @@ class Teachers extends Controller{
     }
 
     // add new announcement
-    public function addAnnouncement($data) {
+    public function addAnnouncement() {
+        // Sanitize POST data
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        $data =[
+            'teacherid' => trim($_POST['teacherid']),
+            'body' => trim($_POST['body'])
+        ];
         // Set Data
         $data = $this->teachersModel->addAnnouncement($data);
 
@@ -63,6 +70,7 @@ class Teachers extends Controller{
 
     // delete announcement
     public function deleteAnnouncement($id) {
+
         // Set Data
         $data = $this->teachersModel->deleteAnnouncement($id);
 
@@ -71,7 +79,18 @@ class Teachers extends Controller{
     }
 
     // add new assignment
-    public function addAssignment($data) {
+    public function addAssignment() {
+        // Sanitize POST data
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        $data =[
+            'teacherid' => trim($_POST['teacherid']),
+            'subject' => trim($_POST['subject']),
+            'releasedate' => trim($_POST['releasedate']),
+            'duedate' => trim($_POST['duedate']),
+            'body' => trim($_POST['body'])
+        ];
+        // Set Data
         // Set Data
         $data = $this->teachersModel->addAssignment($data);
 
