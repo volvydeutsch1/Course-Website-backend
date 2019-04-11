@@ -9,7 +9,7 @@ class Initials extends Controller
 
     // Load Homepage (announcements)
     public function index(){
-        $this->getAnnouncements();
+
     }
 
     // getting all announcements

@@ -68,7 +68,7 @@ class Teacher {
 
     // delete announcement
     public function deleteAnnouncement($id) {
-        $this->db-query("DELETE FROM announcements WHERE id = :id");
+        $this->db->query("DELETE FROM announcements WHERE id = :id");
         // bind param
         $this->db->bind(':id', $id);
 
@@ -101,7 +101,7 @@ class Teacher {
 
     // delete announcement 
     public function deleteAssignment($id) {
-        $this->db-query("DELETE FROM assignments WHERE id = :id");
+        $this->db->query("DELETE FROM assignments WHERE id = :id");
         // bind param
         $this->db->bind(':id', $id);
 

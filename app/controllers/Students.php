@@ -43,42 +43,68 @@ class Students extends Controller
         $student = $this->studentsModel->login($data);
 
         if ($student) {
+            $_SESSION["account_type"] = "student";
             $_SESSION["student_id"] = $student->id;
             $_SESSION["student_name"] = $student->name;
             $this->view( ['accountType' => 'student', 'id' => $student->id, 'name' => $student->name] );
+        }else{
+            // $student returned false
+            $err_msg = ['error' => 'Incorrect StudentId/Password'];
+            $this->view($err_msg);
         }
     }
 
     public function logout(){
-        unset($_SESSION["student_id"]);
-        unset($_SESSION["student_name"]);
+        if(isset($_SESSION["student_id"])){
+            unset($_SESSION['account_type']);
+            unset($_SESSION["student_id"]);
+            unset($_SESSION["student_name"]);
+            session_destroy();
+        }
     }
 
     // add new submission
     public function addSubmission() {
-        // Sanitize POST data
-        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        // check if caller is logged in student
+        if(isset($_SESSION["student_id"])){
+            // Sanitize POST data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-        // Init data from POST input
-        $data = [
-            'studentid' => trim($_POST['studentid']),
-            'assignmentid' => trim($_POST['assignmentid']),
-            'text' => trim($_POST['text'])
-        ];
-        //Set Data
-        $data = $this->studentsModel->addSubmission($data);
+            // Init data from POST input
+            $data = [
+                'studentid' => trim($_POST['studentid']),
+                'assignmentid' => trim($_POST['assignmentid']),
+                'text' => trim($_POST['text'])
+            ];
+            //Set Data
+            $res_data = $this->studentsModel->addSubmission($data);
 
-        // Load homepage / announcements view (api)
-        $this->view($data);
+            // Load homepage / announcements view (api)
+            $this->view($res_data);
+        }else{
+            // not logged in as student
+            $err_msg = ['error' => 'you are not logged in as a student'];
+            $this->view($err_msg);
+        }
+
     }
 
 
-    public function listAssignments($id) {
-        
-        //Set Data
-        $data = $this->studentsModel->listAssignments($id);
+    public function listAssignments() {
+        // check if caller is logged in student
+        if(isset($_SESSION["student_id"])){
 
-        // Load homepage / announcements view (api)
-        $this->view($data);
+            $id = $_SESSION['student_id'];
+            //Set Data
+            $data = $this->studentsModel->listAssignments($id);
+
+            // Load homepage / announcements view (api)
+            $this->view($data);
+        }else{
+            // not student
+            $err_msg = ['error' => 'you are not logged in as a student'];
+            $this->view($err_msg);
+        }
     }
+
 }
