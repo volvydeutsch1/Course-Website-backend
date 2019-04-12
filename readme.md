@@ -2,20 +2,16 @@
 
 ## End Points
  The API will only work if logged in correctly (besides for initial/getAnnouncements, logins and registers)
- 
- All requests are made in **POST** method
 
  **Initial:**
  
- - */backend/initials/getAnnouncements*
+ - */backend/initials/getAnnouncements* [get]
 
     Returns all announcements.
     
-    No data is added to request.
-    
  **Student:**
  
- - */backend/students/register*
+ - */backend/students/register* [post]
 
     Registers account for student, returns student ID.
     
@@ -23,7 +19,7 @@
     - name (string)
     - password (string)
     
- - */backend/students/login*
+ - */backend/students/login* [post]
 
     Logs in student, returns account type, ID and name.
     
@@ -31,13 +27,11 @@
     - id (int)
     - password (string)
     
- - */backend/students/logout*
+ - */backend/students/logout* [get]
 
     Logs out student.
     
-    No data is added to request.
-    
- - */backend/students/addSubmission*
+ - */backend/students/addSubmission* [post]
 
     Adds new submission to database.
     
@@ -46,15 +40,13 @@
     - assignmentid (int)
     - text(string)
     
- - */backend/students/listAssignments*
+ - */backend/students/listAssignments* [get]
  
      Returns all assignments specific for logged in student
-     
-     No data is added to request.
 
  **Teacher:**
  
- - */backend/teacher/register*
+ - */backend/teacher/register* [post]
 
     Registers account for teacher, returns teacher ID.
     
@@ -62,7 +54,7 @@
     - name (string)
     - password (string)
     
- - */backend/teacher/login*
+ - */backend/teacher/login* [post]
 
     Logs in teacher, returns account type, ID and name.
     
@@ -70,13 +62,11 @@
     - id (int)
     - password (string)
     
- - */backend/teacher/logout*
+ - */backend/teacher/logout* [get]
 
     Logs out teacher.
     
-    No data is added to request.
-    
- - */backend/teacher/addAnnouncement*
+ - */backend/teacher/addAnnouncement* [post]
 
     Adds new announcement to database.
     
@@ -84,13 +74,11 @@
     - teacherid (int)
     - body (string)
     
- - */backend/teacher/deleteAnnouncement/:announcement_id*
+ - */backend/teacher/deleteAnnouncement/:announcement_id* [get]
  
      Deletes announcement of that announcement_id
      
-     No data is added to request.
-     
- - */backend/teacher/addAssignment*
+ - */backend/teacher/addAssignment* [post]
  
      Adds new assignment to database.
      
@@ -100,10 +88,8 @@
      - duedate (string)
      - body (string)
      
- - */backend/teacher/deleteAssignment/:assignment_id*
+ - */backend/teacher/deleteAssignment/:assignment_id* [get]
  
      Deletes announcement of that announcement_id
-      
-     No data is added to request.   
 
 - 
