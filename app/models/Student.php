@@ -77,5 +77,20 @@ class Student {
         return $this->db->resultSet();
     }
 
+    // add new AnnouncementRead
+    public function addAnnouncementRead($data) {
+        $this->db->query("INSERT INTO announcements_read (studentid, announcementid, date) VALUES(:studentid, :announcementid, CURRENT_DATE)");
+        // Bind values
+        $this->db->bind(':studentid', $data['studentid']);
+        $this->db->bind(':announcementid', $data['announcementid']);
+
+        // execute
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
 }
