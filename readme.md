@@ -27,9 +27,12 @@
     - id (int)
     - password (string)
     
- - */backend/students/logout* [get]
+ - */backend/students/logout* [post]
 
     Logs out student.
+    
+    expects the following data:
+    - token (string)
     
  - */backend/students/addSubmission* [post]
 
@@ -40,9 +43,12 @@
     - assignmentid (int)
     - text(string)
     
- - */backend/students/listAssignments* [get]
+ - */backend/students/listAssignments* [post]
  
      Returns all assignments specific for logged in student
+     
+     expects the following data:
+     - token (string)
 
  **Teacher:**
  
@@ -62,9 +68,12 @@
     - id (int)
     - password (string)
     
- - */backend/teacher/logout* [get]
+ - */backend/teacher/logout* [post]
 
     Logs out teacher.
+    
+    expects the following data:
+    - token (string)
     
  - */backend/teacher/addAnnouncement* [post]
 
@@ -74,9 +83,12 @@
     - teacherid (int)
     - body (string)
     
- - */backend/teacher/deleteAnnouncement/:announcement_id* [get]
+ - */backend/teacher/deleteAnnouncement/:announcement_id* [post]
  
      Deletes announcement of that announcement_id
+     
+     expects the following data:
+     - token (string)
      
  - */backend/teacher/addAssignment* [post]
  
@@ -88,8 +100,11 @@
      - duedate (string)
      - body (string)
      
- - */backend/teacher/deleteAssignment/:assignment_id* [get]
+ - */backend/teacher/deleteAssignment/:assignment_id* [post]
  
      Deletes announcement of that announcement_id
+     
+     expects the following data:
+     - token (string)
 
 - 
