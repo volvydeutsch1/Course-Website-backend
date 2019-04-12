@@ -70,11 +70,12 @@ class Students extends Controller
         if(isset($_SESSION["student_id"])){
             // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            $_POST = json_decode(key($_POST), true);
 
             // Init data from POST input
             $data = [
-                'studentid' => trim($_POST['studentid']),
-                'assignmentid' => trim($_POST['assignmentid']),
+                'studentid' => trim($_POST['studentId']),
+                'assignmentid' => trim($_POST['assignmentId']),
                 'text' => trim($_POST['text'])
             ];
             //Set Data
