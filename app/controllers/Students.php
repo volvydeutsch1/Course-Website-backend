@@ -32,6 +32,7 @@ class Students extends Controller
 
         // Sanitize POST data
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        $_POST = json_decode(key($_POST), true);
 
         // Init data from POST input
         $data = [

@@ -113,7 +113,7 @@ class Teachers extends Controller{
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
             $data =[
-                'teacherid' => trim($_POST['teacherid']),
+                'teacherid' => $_SESSION["teacher_id"],
                 'subject' => trim($_POST['subject']),
                 'releasedate' => trim($_POST['releasedate']),
                 'duedate' => trim($_POST['duedate']),
