@@ -127,7 +127,7 @@ class Students extends Controller
         $data = [
             'token' => $_POST['token'],
             'studentid' => trim($_POST['studentid']),
-            'assignmentid' => trim($_POST['assignmentid'])
+            'annoucementid' => trim($_POST['annoucementid'])
         ];
 
         // check if caller is logged in student

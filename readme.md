@@ -39,6 +39,7 @@
     Adds new submission to database.
     
     expects the following data:
+    - token (string)
     - studentid (int)
     - assignmentid (int)
     - text(string)
@@ -49,6 +50,15 @@
      
      expects the following data:
      - token (string)
+     
+ - */backend/students/addSubmission* [post]
+ 
+     Adds new submission to database.
+     
+     expects the following data:
+     - token (string)
+     - studentid (int)
+     - annoucementid (int)
 
  **Teacher:**
  
@@ -80,6 +90,17 @@
     Adds new announcement to database.
     
     expects the following data:
+    - token (string)
+    - teacherid (int)
+    - body (string)
+    
+ - */backend/teacher/updateAnnouncement* [post]
+
+    Updates announcement.
+    
+    expects the following data:
+    - token (string)
+    - id (int)
     - teacherid (int)
     - body (string)
     
@@ -95,6 +116,20 @@
      Adds new assignment to database.
      
      expects the following data:
+     - token (string)
+     - subject (string)
+     - releasedate (string)
+     - duedate (string)
+     - body (string)
+     
+ - */backend/teacher/updateAssignment* [post]
+ 
+     Updates assignment.
+     
+     expects the following data:
+     - token (string)
+     - id (int)
+     - teacherid (int)
      - subject (string)
      - releasedate (string)
      - duedate (string)
@@ -106,5 +141,27 @@
      
      expects the following data:
      - token (string)
+     
+ - */backend/teacher/listAssignments* [post]
+ 
+     Lists all assignments
+     
+     expects the following data:
+     - token (string)
 
+ - */backend/teacher/listSubmissions* [post]
+ 
+     Lists all students assignments submissions
+     
+     expects the following data:
+     - token (string)
+     
+ - */backend/teacher/updateSubmission* [post]
+ 
+     Updates students assignments submissions with grade
+     
+     expects the following data:
+     - token (string)
+     - id (string - submission id)
+     - grade (float)
 - 

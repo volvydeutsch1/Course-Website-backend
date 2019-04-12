@@ -94,9 +94,9 @@ class Teachers extends Controller{
 
         $data = [
             'token' => $_POST['token'],
-            'id' => $_SESSION["id"],
-            'teacherid' => $_SESSION["teacher_id"],
-            'body' => trim($_POST['body'])
+            'id' => $_POST["id"],
+            'teacherid' => $_POST["teacherid"],
+            'body' => $_POST['body']
         ];
 
         // check if caller is logged in teacher
@@ -180,12 +180,12 @@ class Teachers extends Controller{
 
         $data =[
             'token' => $_POST['token'],
-            'id' => trim($_POST['id']),
-            'teacherid' => trim($_POST['teacherid']),
-            'subject' => trim($_POST['subject']),
-            'releasedate' => trim($_POST['releasedate']),
-            'duedate' => trim($_POST['duedate']),
-            'body' => trim($_POST['body'])
+            'id' => $_POST['id'],
+            'teacherid' => $_POST['assignmentid'],
+            'subject' => $_POST['subject'],
+            'releasedate' => $_POST['releasedate'],
+            'duedate' => $_POST['duedate'],
+            'body' => $_POST['body']
         ];
 
         // check if caller is logged in teacher
@@ -287,23 +287,17 @@ class Teachers extends Controller{
 
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-        // Set token POST input
+        // Init data
         $data = [
-            'token' => $_POST['token']
+            'token' => $_POST['token'],
+            'id' => trim($_POST['id']),
+            'grade' => trim($_POST['grade'])
         ];
 
         // check if caller is logged in teacher
         $verified = $this->initialModel->verifyToken($data['token']);
         if($verified){
 
-            // Sanitize POST data
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
-            // Init data
-            $data = [
-                'id' => trim($_POST['id']),
-                'grade' => trim($_POST['grade'])
-            ];
 
             // Set Data
             $res_data = $this->teachersModel->updateSubmission($data);
