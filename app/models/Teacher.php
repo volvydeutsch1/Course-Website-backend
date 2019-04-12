@@ -66,6 +66,22 @@ class Teacher {
         }
     }
 
+    // update announcement
+    public function updateAnnouncement($data) {
+        $this->db->query("UPDATE announcements set teacherid = :teacherid, date = CURRENT_DATE, body = :body WHERE id = :id");
+        // Bind values
+        $this->db->bind(':id', $data['id']);
+        $this->db->bind(':teacherid', $data['teacherid']);
+        $this->db->bind(':body', $data['body']);
+
+        // execute
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     // delete announcement
     public function deleteAnnouncement($id) {
         $this->db->query("DELETE FROM announcements WHERE id = :id");
@@ -84,6 +100,25 @@ class Teacher {
     public function addAssignment($data) {
         $this->db->query("INSERT INTO assignments (teacherid, subject, releasedate, duedate, body) VALUES(:teacherid, :subject, :releasedate, :duedate,  :body)");
         // Bind values
+        $this->db->bind(':teacherid', $data['teacherid']);
+        $this->db->bind(':subject', $data['subject']);
+        $this->db->bind(':releasedate', $data['releasedate']);
+        $this->db->bind(':duedate', $data['duedate']);
+        $this->db->bind(':body', $data['body']);
+
+        // execute
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // update assignment
+    public function updateAssignment($data) {
+        $this->db->query("UPDATE assignments SET teacherid = :teacherid, subject = :subject, releasedate = :releasedate, duedate = :duedate, body = :body WHERE id = :id");
+        // Bind values
+        $this->db->bind(':id', $data['id']);
         $this->db->bind(':teacherid', $data['teacherid']);
         $this->db->bind(':subject', $data['subject']);
         $this->db->bind(':releasedate', $data['releasedate']);

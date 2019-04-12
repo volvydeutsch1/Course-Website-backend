@@ -85,6 +85,31 @@ class Teachers extends Controller{
         }
     }
 
+    // update announcement
+    public function updateAnnouncement() {
+
+        // check if caller is logged in as teacher
+        if(isset($_SESSION["teacher_id"])) {
+            // Sanitize POST data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            $data = [
+                'id' => $_SESSION["id"],
+                'teacherid' => $_SESSION["teacher_id"],
+                'body' => trim($_POST['body'])
+            ];
+            // Set Data
+            $data = $this->teachersModel->updateAnnouncement($data);
+
+            // Load homepage / announcements view (api)
+            $this->view($data);
+        }else{
+            // not logged in as teacher
+            $err_msg = ['error' => 'you are not logged in as a teacher'];
+            $this->view($err_msg);
+        }
+    }
+
     // delete announcement
     public function deleteAnnouncement($id) {
 
@@ -122,6 +147,35 @@ class Teachers extends Controller{
             // Set Data
             // Set Data
             $res_data = $this->teachersModel->addAssignment($data);
+
+            // Load homepage / announcements view (api)
+            $this->view($res_data);
+        }else{
+            // not logged in as teacher
+            $err_msg = ['error' => 'you are not logged in as a teacher'];
+            $this->view($err_msg);
+        }
+
+    }
+
+    // update assignment
+    public function updateAssignment() {
+
+        // check if caller is logged in as teacher
+        if(isset($_SESSION["teacher_id"])) {
+            // Sanitize POST data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            $data =[
+                'id' => trim($_POST['id']),
+                'teacherid' => trim($_POST['teacherid']),
+                'subject' => trim($_POST['subject']),
+                'releasedate' => trim($_POST['releasedate']),
+                'duedate' => trim($_POST['duedate']),
+                'body' => trim($_POST['body'])
+            ];
+            // Set Data
+            $res_data = $this->teachersModel->updateAssignment($data);
 
             // Load homepage / announcements view (api)
             $this->view($res_data);
