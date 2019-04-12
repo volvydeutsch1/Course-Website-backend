@@ -3,6 +3,7 @@ class Teachers extends Controller{
 
     public function __construct(){
         $this->teachersModel = $this->model('Teacher');
+        $this->initialModel = $this->model('Initial');
     }
 
     public function index(){
@@ -40,11 +41,9 @@ class Teachers extends Controller{
         // Getting back all info of teacher on success or false
         $teacher = $this->teachersModel->login($data);
 
-        if($teacher){
-            $_SESSION["account_type"] = "teacher";
-            $_SESSION["teacher_id"] = $teacher->id;
-            $_SESSION["teacher_name"] = $teacher->name;
-            $this->view( ['accountType' => 'teacher', 'id' => $teacher->id, 'name' => $teacher->name] );
+        if ($teacher) {
+            $token = $this->initialModel->setToken($teacher->id, "teacher");
+            $this->view( ['token' => $token, 'accountType' => 'teacher', 'id' => $teacher->id, 'name' => $teacher->name] );
         }else{
             // $teacher returned false
             $err_msg = ['error' => 'Incorrect TeacherId/Password'];
@@ -53,26 +52,28 @@ class Teachers extends Controller{
     }
 
     public function logout(){
-        if(isset($_SESSION["teacher_id"])) {
-            unset($_SESSION['account_type']);
-            unset($_SESSION["teacher_id"]);
-            unset($_SESSION["teacher_name"]);
-            session_destroy();
-        }
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        // Delete token
+        $token = $_POST['token'];
+        $this->initialModel->clearToken($token);
     }
 
     // add new announcement
     public function addAnnouncement() {
 
-        // check if caller is logged in as teacher
-        if(isset($_SESSION["teacher_id"])) {
-            // Sanitize POST data
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        // Sanitize POST data
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-            $data = [
-                'teacherid' => $_SESSION["teacher_id"],
-                'body' => trim($_POST['body'])
-            ];
+        $data = [
+            'token' => $_POST['token'],
+            'teacherid' => $_SESSION["teacher_id"],
+            'body' => trim($_POST['body'])
+        ];
+
+        // check if caller is logged in teacher
+        $verified = $this->initialModel->verifyToken($data['token']);
+        if($verified){
             // Set Data
             $data = $this->teachersModel->addAnnouncement($data);
 
@@ -88,16 +89,19 @@ class Teachers extends Controller{
     // update announcement
     public function updateAnnouncement() {
 
-        // check if caller is logged in as teacher
-        if(isset($_SESSION["teacher_id"])) {
-            // Sanitize POST data
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        // Sanitize POST data
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-            $data = [
-                'id' => $_SESSION["id"],
-                'teacherid' => $_SESSION["teacher_id"],
-                'body' => trim($_POST['body'])
-            ];
+        $data = [
+            'token' => $_POST['token'],
+            'id' => $_SESSION["id"],
+            'teacherid' => $_SESSION["teacher_id"],
+            'body' => trim($_POST['body'])
+        ];
+
+        // check if caller is logged in teacher
+        $verified = $this->initialModel->verifyToken($data['token']);
+        if($verified){
             // Set Data
             $data = $this->teachersModel->updateAnnouncement($data);
 
@@ -113,8 +117,16 @@ class Teachers extends Controller{
     // delete announcement
     public function deleteAnnouncement($id) {
 
-        // check if caller is logged in as teacher
-        if(isset($_SESSION["teacher_id"])) {
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        // Set token POST input
+        $data = [
+            'token' => $_POST['token']
+        ];
+
+        // check if caller is logged in teacher
+        $verified = $this->initialModel->verifyToken($data['token']);
+        if($verified){
 
             // Set Data
             $data = $this->teachersModel->deleteAnnouncement($id);
@@ -132,19 +144,21 @@ class Teachers extends Controller{
     // add new assignment
     public function addAssignment() {
 
-        // check if caller is logged in as teacher
-        if(isset($_SESSION["teacher_id"])) {
-            // Sanitize POST data
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        // Sanitize POST data
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-            $data =[
-                'teacherid' => trim($_POST['teacherid']),
-                'subject' => trim($_POST['subject']),
-                'releasedate' => trim($_POST['releasedate']),
-                'duedate' => trim($_POST['duedate']),
-                'body' => trim($_POST['body'])
-            ];
-            // Set Data
+        $data =[
+            'token' => $_POST['token'],
+            'teacherid' => trim($_POST['teacherid']),
+            'subject' => trim($_POST['subject']),
+            'releasedate' => trim($_POST['releasedate']),
+            'duedate' => trim($_POST['duedate']),
+            'body' => trim($_POST['body'])
+        ];
+
+        // check if caller is logged in teacher
+        $verified = $this->initialModel->verifyToken($data['token']);
+        if($verified){
             // Set Data
             $res_data = $this->teachersModel->addAssignment($data);
 
@@ -161,19 +175,22 @@ class Teachers extends Controller{
     // update assignment
     public function updateAssignment() {
 
-        // check if caller is logged in as teacher
-        if(isset($_SESSION["teacher_id"])) {
-            // Sanitize POST data
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        // Sanitize POST data
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-            $data =[
-                'id' => trim($_POST['id']),
-                'teacherid' => trim($_POST['teacherid']),
-                'subject' => trim($_POST['subject']),
-                'releasedate' => trim($_POST['releasedate']),
-                'duedate' => trim($_POST['duedate']),
-                'body' => trim($_POST['body'])
-            ];
+        $data =[
+            'token' => $_POST['token'],
+            'id' => trim($_POST['id']),
+            'teacherid' => trim($_POST['teacherid']),
+            'subject' => trim($_POST['subject']),
+            'releasedate' => trim($_POST['releasedate']),
+            'duedate' => trim($_POST['duedate']),
+            'body' => trim($_POST['body'])
+        ];
+
+        // check if caller is logged in teacher
+        $verified = $this->initialModel->verifyToken($data['token']);
+        if($verified){
             // Set Data
             $res_data = $this->teachersModel->updateAssignment($data);
 
@@ -187,11 +204,19 @@ class Teachers extends Controller{
 
     }
 
-    // delete announcement
+    // delete assignment
     public function deleteAssignment($id) {
 
-        // check if caller is logged in as teacher
-        if(isset($_SESSION["teacher_id"])) {
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        // Set token POST input
+        $data = [
+            'token' => $_POST['token']
+        ];
+
+        // check if caller is logged in teacher
+        $verified = $this->initialModel->verifyToken($data['token']);
+        if($verified){
             // Set Data
             $data = $this->teachersModel->deleteAssignment($id);
 
@@ -208,8 +233,16 @@ class Teachers extends Controller{
     // list of assignments by TeacherID
     public function listAssignments($id) {
 
-        // check if caller is logged in as teacher
-        if(isset($_SESSION["teacher_id"])) {
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        // Set token POST input
+        $data = [
+            'token' => $_POST['token']
+        ];
+
+        // check if caller is logged in teacher
+        $verified = $this->initialModel->verifyToken($data['token']);
+        if($verified){
             // Set Data
             $data = $this->teachersModel->listAssignments($id);
 
@@ -226,8 +259,16 @@ class Teachers extends Controller{
     // list of student submissions for AssignmentID
     public function listSubmissions($id) {
 
-        // check if caller is logged in as teacher
-        if(isset($_SESSION["teacher_id"])) {
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        // Set token POST input
+        $data = [
+            'token' => $_POST['token']
+        ];
+
+        // check if caller is logged in teacher
+        $verified = $this->initialModel->verifyToken($data['token']);
+        if($verified){
             // Set Data
             $data = $this->teachersModel->listSubmissions($id);
 
@@ -244,8 +285,16 @@ class Teachers extends Controller{
     // update submission grade
     public function updateSubmission() {
 
-        // check if caller is logged in as teacher
-        if(isset($_SESSION["teacher_id"])) {
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        // Set token POST input
+        $data = [
+            'token' => $_POST['token']
+        ];
+
+        // check if caller is logged in teacher
+        $verified = $this->initialModel->verifyToken($data['token']);
+        if($verified){
 
             // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
