@@ -1,7 +1,9 @@
 # Backend API documentation
 
 ## End Points
- The API will only work if logged in correctly using token header (besides for initial class methods)
+ This API will initially load the home page including ALL Announcements.
+ It will then require register/login for any Teacher/Student to access further features that
+ will be validated using token header.
 
  **Initial:**
  
@@ -11,85 +13,85 @@
  
  - */backend/initials/register* [post]
 
-    Creates a new account for teacher/student, returns teacher/student ID.
+    Creates a new account for Teacher/Student.
     
-    expects the following data:
-    - accountType (string - teacher/student)
+    Input data:
+    - accountType (string - 'teacher'/'student')
     - name (string)
     - password (string)
     
+    Output: TeacherID / StudentID.
+    
  - */backend/initials/login* [post]
 
-    Logs in teacher/student, returns account type, ID and name.
+    Logs in Teacher/Student.
     
-    expects the following data:
-    - accountType (string - teacher/student)
+    Input data:
+    - accountType (string - 'teacher'/'student')
     - id (int)
     - password (string)
     
+    Output: ID / Name.
+    
  - */backend/initials/logout*
 
-    Logs out teacher/student.
+    Logs out Teacher/Student.
     
     uses logged in Authorization header
     
   **Student:**
  
- - */backend/students/addSubmission* [post]
-
-    Adds new submission to database.
-    
-    expects the following data:
-    - studentid (int)
-    - assignmentid (int)
-    - text(string)
     
  - */backend/students/listAssignments* [post]
  
-     Returns all assignments specific for logged in student
+     Returns all assignments as well as Submission Date (if applicable) for logged in Student
      
-     expects the following data:
-     - student_id (int)
+     Input data:
+     - StudentID (int)
+     
+     Output: Assignment Data with associated Submission Date (if applicable)
      
  - */backend/students/addSubmission* [post]
  
-     Adds new submission to database.
+     Adds new submission to database for UnSubmitted Assignments.
      
-     expects the following data:
-     - studentid (int)
-     - annoucementid (int)
+     Input data:
+     - StudentID (int)
+     - AssignmentID (int)
+     - text(string)
 
  **Teacher:**
     
- - */backend/teacher/addAnnouncement* [post]
+ - */backend/teachers/addAnnouncement* [post]
 
-    Adds new announcement to database.
+    Adds new Announcement to database.
     
-    expects the following data:
-    - teacherid (int)
+    Input data:
+    - TeacherID (int)
     - body (string)
     
- - */backend/teacher/updateAnnouncement* [post]
+ - */backend/teachers/updateAnnouncement* [post]
 
     Updates announcement.
     
-    expects the following data:
-    - id (int)
-    - teacherid (int)
+    Input data:
+    - AssignmentID (int)
+    - TeacherID (int)
     - body (string)
     
- - */backend/teacher/deleteAnnouncement* [post]
+ - */backend/teachers/deleteAnnouncement* [post]
  
-     Deletes announcement of that announcement_id
+     Deletes announcement from database.
      
-     expects the following data:
-     - id (int)
+     Input data:
+     - AnnouncementID (int)
      
- - */backend/teacher/addAssignment* [post]
+ - */backend/teachers/addAssignment* [post]
  
      Adds new assignment to database.
      
-     expects the following data:
+     Input data:
+     - TeacherID (int)
      - subject (string)
      - releasedate (string)
      - duedate (string)
@@ -99,40 +101,39 @@
  
      Updates assignment.
      
-     expects the following data:
-     - id (int)
-     - teacherid (int)
+     Input data:
+     - AssignmentID (int)
+     - TeacherID (int)
      - subject (string)
      - releasedate (string)
      - duedate (string)
      - body (string)
      
- - */backend/teacher/deleteAssignment* [post]
+ - */backend/teachers/deleteAssignment* [post]
  
-     Deletes announcement of that assignment_id
+     Deletes announcement from database.
      
-     expects the following data:
-     - id (int)
+     Input data:
+     - AssignmentID (int)
      
- - */backend/teacher/listAssignments* [post]
+ - */backend/teachers/listAssignments* [post]
  
-     Lists all assignments
+     Lists all assignments for logged in Teacher
      
-     expects the following data:
-     - teacher_id (int)
+     Input data:
+     - TeacherID (int)
 
  - */backend/teacher/listSubmissions* [post]
  
-     Lists all students assignments submissions
+     Lists all submissions for any given Assignment
      
-     expects the following data:
-     - assignment_id (int)
+     Input data:
+     - AssignmentID (int)
      
- - */backend/teacher/updateSubmission* [post]
+ - */backend/teachers/updateSubmission* [post]
  
-     Updates students assignments submissions with grade
+     Updates Submission record with grade
      
-     expects the following data:
-     - id (string - submission id)
+     Input data:
+     - SubmissionID (int)
      - grade (float)
-- 
