@@ -9,7 +9,7 @@ class Teacher {
 
     // add new announcement
     public function addAnnouncement($data) {
-        $this->db->query("INSERT INTO announcements (teacherid, date, body) VALUES(:teacherid, CURRENT_DATE, :body)");
+        $this->db->query("INSERT INTO announcements (teacherid, date, body) VALUES(:teacherid, current_timestamp, :body)");
         // Bind values
         $this->db->bind(':teacherid', $data['teacherid']);
         $this->db->bind(':body', $data['body']);

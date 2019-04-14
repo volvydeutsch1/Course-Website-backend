@@ -9,7 +9,7 @@ class Initial {
 
     // retrieve all announcements with newest to oldest
     public function getAnnouncements() {
-        $this->db->query("SELECT t.name, DATE_FORMAT(a.date, '%b %d %Y') AS date, a.id, a.body FROM announcements a, teachers t WHERE a.teacherid = t.id ORDER BY date DESC");
+        $this->db->query("SELECT t.name, DATE_FORMAT(a.date, '%b %d %Y %h:%i %p') AS date, a.id, a.body FROM announcements a, teachers t WHERE a.teacherid = t.id ORDER BY date DESC");
 
         return $this->db->resultSet();
     }
