@@ -7,50 +7,6 @@ class Teacher {
         $this->db = new Database;
     }
 
-    // register teacher
-    public function register($data) {
-        $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-        $this->db->query('INSERT INTO teachers (name, password) VALUES(:name, :password)');
-        // Bind values
-        $this->db->bind(':name', $data['name']);
-        $this->db->bind(':password', $data['password']);
-
-        // Execute
-        if($this->db->execute()){
-            // return the new teacherID
-            $this->db->query('SELECT * FROM teachers WHERE name = :name AND password = :password');
-            // Bind values
-            $this->db->bind(':name', $data['name']);
-            $this->db->bind(':password', $data['password']);
-            $row = $this->db->single();
-            return $row->id;
-        } else {
-            return false;
-        }
-    }
-
-    // teacher login
-    public function login($data){
-        $this->db->query('SELECT * FROM teachers WHERE id = :id');
-
-        // Bind values
-        $this->db->bind(':id', $data['id']);
-
-        $row = $this->db->single();
-        if($row){
-            $password = $data['password'];
-            $hashed_password = $row->password;
-            if(password_verify($password, $hashed_password)){
-                return $row;
-            } else {
-                return false;
-            }
-        }else{
-            return false;
-        }
-    }
-
-
     // add new announcement
     public function addAnnouncement($data) {
         $this->db->query("INSERT INTO announcements (teacherid, date, body) VALUES(:teacherid, CURRENT_DATE, :body)");
