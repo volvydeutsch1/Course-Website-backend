@@ -56,8 +56,8 @@
        Adds new AnnouncementRead to database for Announcement marked Read By Student.
        
        Input data:
-       - StudentID (int)
-       - AnnouncementID (int) 
+       - Studentid (int)
+       - Announcementid (int) 
      
  - */backend/students/addSubmission* [post]
  

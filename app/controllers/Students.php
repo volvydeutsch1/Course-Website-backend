@@ -62,11 +62,11 @@ class Students extends Controller {
         // Init data from POST input
         $data = [
             'studentid' => $_POST['studentid'],
-            'annoucementid' => $_POST['annoucementid']
+            'announcementid' => $_POST['announcementid']
         ];
 
         //Set Data
-        $res_data = $this->studentsModel->addAnnoucementRead($data);
+        $res_data = $this->studentsModel->addAnnouncementRead($data);
 
         // Load result page api
         $this->view($res_data);

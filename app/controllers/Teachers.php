@@ -26,7 +26,7 @@ class Teachers extends Controller {
     public function addAnnouncement() {
 
         $data = [
-            'teacherid' => $_POST["teacher_id"],
+            'teacherid' => $_POST["teacherid"],
             'body' => trim($_POST['body'])
         ];
 
