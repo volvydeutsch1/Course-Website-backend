@@ -51,6 +51,14 @@
      
      Output: Assignment Data with associated Submission Date (if applicable)
      
+  - */backend/students/addAnnouncementRead* [post]
+   
+       Adds new AnnouncementRead to database for Announcement marked Read By Student.
+       
+       Input data:
+       - StudentID (int)
+       - AnnouncementID (int) 
+     
  - */backend/students/addSubmission* [post]
  
      Adds new submission to database for UnSubmitted Assignments.
