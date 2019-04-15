@@ -7,6 +7,17 @@ class Student {
         $this->db = new Database;
     }
 
+
+    // retrieve all announcements with newest to oldest for logged-in student with announcements_read (if applicable)
+    public function getAnnouncements($id) {
+        $this->db->query("SELECT t.name, DATE_FORMAT(a.date, '%b %d %Y %h:%i %p') AS date, a.id, a.body, n.date AS date_read FROM announcements a LEFT JOIN (SELECT * FROM announcements_read ar WHERE ar.studentid = :id) AS n ON a.id = n.announcementid, teachers t WHERE a.teacherid = t.id ORDER BY date DESC");
+        // Bind values
+        $this->db->bind(':id', $id);
+        
+        return $this->db->resultSet();
+    }
+
+
     // add new submission
     public function addSubmission($data) {
         $this->db->query("INSERT INTO submissions (studentid, assignmentid, datesubmitted, text) VALUES(:studentid, :assignmentid, CURRENT_TIMESTAMP, :text)");

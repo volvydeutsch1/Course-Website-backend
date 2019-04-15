@@ -41,6 +41,12 @@
     
   **Student:**
  
+  - */backend/students/getAnnouncements* [get]
+ 
+     Returns all announcements for logged-in student with announcements-read (if applicable)
+     
+     Input data:
+          - StudentID (int)  
     
  - */backend/students/listAssignments* [post]
  

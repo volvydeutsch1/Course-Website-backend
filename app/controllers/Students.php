@@ -23,6 +23,20 @@ class Students extends Controller {
     }
 
 
+    public function getAnnouncements() {
+
+        $data = [
+            'student_id' => $_POST['student_id']
+        ];
+
+        //Set Data
+        $data = $this->studentsModel->getAnnouncements($data['student_id']);
+
+        // Load result page api
+        $this->view($data);
+
+    }
+
     // add new submission
     public function addSubmission() {
 

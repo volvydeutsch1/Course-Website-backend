@@ -54,7 +54,7 @@ class Teacher {
 
     // add new assignment
     public function addAssignment($data) {
-        $this->db->query("INSERT INTO assignments (teacherid, subject, releasedate, duedate, body) VALUES(:teacherid, :subject, DATE_FORMAT(FROM_UNIXTIME(:releasedate), '%Y-%m-%d'),  DATE_FORMAT(FROM_UNIXTIME(:duedate), '%Y-%m-%d'), :body)");
+        $this->db->query("INSERT INTO assignments (teacherid, subject, releasedate, duedate, body) VALUES(:teacherid, :subject, :releasedate, :duedate, :body)");
         // Bind values
         $this->db->bind(':teacherid', $data['teacherid']);
         $this->db->bind(':subject', $data['subject']);

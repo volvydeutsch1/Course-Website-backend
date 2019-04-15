@@ -74,8 +74,8 @@ class Teachers extends Controller {
         $data =[
             'teacherid' => trim($_POST['teacherId']),
             'subject' => trim($_POST['subject']),
-            'releasedate' => trim($_POST['releaseDate']),
-            'duedate' => trim($_POST['dueDate']),
+            'releasedate' => trim(gmdate('Y-m-d',$_POST['releaseDate'])),
+            'duedate' => trim(gmdate('Y-m-d',$_POST['dueDate'])),
             'body' => trim($_POST['body'])
         ];
 
@@ -94,8 +94,8 @@ class Teachers extends Controller {
             'id' => $_POST['id'],
             'teacherid' => $_POST['teacherId'],
             'subject' => $_POST['subject'],
-            'releasedate' => $_POST['releaseDate'],
-            'duedate' => $_POST['dueDate'],
+            'releasedate' => trim(gmdate('Y-m-d',$_POST['releaseDate'])),
+            'duedate' => trim(gmdate('Y-m-d',$_POST['dueDate'])),
             'body' => $_POST['body']
         ];
 
