@@ -72,10 +72,10 @@ class Teachers extends Controller {
     public function addAssignment() {
 
         $data =[
-            'teacherid' => trim($_POST['teacherid']),
+            'teacherid' => trim($_POST['teacherId']),
             'subject' => trim($_POST['subject']),
-            'releasedate' => trim($_POST['releasedate']),
-            'duedate' => trim($_POST['duedate']),
+            'releasedate' => trim($_POST['releaseDate']),
+            'duedate' => trim($_POST['dueDate']),
             'body' => trim($_POST['body'])
         ];
 
@@ -92,10 +92,10 @@ class Teachers extends Controller {
 
         $data =[
             'id' => $_POST['id'],
-            'teacherid' => $_POST['assignmentid'],
+            'teacherid' => $_POST['teacherId'],
             'subject' => $_POST['subject'],
-            'releasedate' => $_POST['releasedate'],
-            'duedate' => $_POST['duedate'],
+            'releasedate' => $_POST['releaseDate'],
+            'duedate' => $_POST['dueDate'],
             'body' => $_POST['body']
         ];
 
