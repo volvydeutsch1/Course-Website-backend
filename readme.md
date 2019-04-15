@@ -43,7 +43,7 @@
  
   - */backend/students/getAnnouncements* [get]
  
-     Returns all announcements for logged-in student with announcements-read (if applicable)
+     Returns all announcements for logged-in student with Date_Read (if applicable)
      
      Input data:
           - StudentID (int)  

@@ -118,7 +118,7 @@ class Teacher {
 
     // list of student submissions for AssignmentID
     public function listSubmissions($id) {
-        $this->db->query("SELECT * FROM students st LEFT JOIN (SELECT * FROM submissions s WHERE s.assignmentid = :id) AS n ON st.id = n.studentid ORDER BY st.name");
+        $this->db->query("SELECT st.id as stID, st.name, s.* FROM students st LEFT JOIN (SELECT * FROM submissions s WHERE s.assignmentid = :id) AS n ON st.id = n.studentid ORDER BY st.name");
 
         // Bind values
         $this->db->bind(':id', $id);
