@@ -12,6 +12,15 @@ class Students extends Controller {
         $this->initialModel = $this->model('Initial');
 
         $headers = getallheaders();
+
+        // No Authorization header was sent
+        if(!isset($headers['Authorization'])){
+            // not logged in as student echo error message and exit
+            $err_msg = ['error' => 'you are not logged in as a student'];
+            $this->view($err_msg);
+            exit;
+        }
+
         $verified = $this->initialModel->verifyToken($headers['Authorization']);
 
         if($verified == false || $verified->student_id == false){

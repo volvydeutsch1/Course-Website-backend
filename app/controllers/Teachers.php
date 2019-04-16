@@ -12,6 +12,15 @@ class Teachers extends Controller {
         $this->initialModel = $this->model('Initial');
 
         $headers = getallheaders();
+
+        // No Authorization header was sent
+        if(!isset($headers['Authorization'])){
+            // not logged in as teacher echo error message and exit
+            $err_msg = ['error' => 'you are not logged in as a teacher'];
+            $this->view($err_msg);
+            exit;
+        }
+
         $verified = $this->initialModel->verifyToken($headers['Authorization']);
 
         if($verified == false || $verified->teacher_id == false){
@@ -74,8 +83,8 @@ class Teachers extends Controller {
         $data =[
             'teacherid' => trim($_POST['teacherId']),
             'subject' => trim($_POST['subject']),
-            'releasedate' => trim(gmdate('Y-m-d',(int)$_POST['releaseDate'])),
-            'duedate' => trim(gmdate('Y-m-d',(int)$_POST['dueDate'])),
+            'releasedate' => $_POST['releaseDate'],
+            'duedate' => $_POST['dueDate'],
             'body' => trim($_POST['body'])
         ];
 
@@ -94,8 +103,8 @@ class Teachers extends Controller {
             'id' => $_POST['id'],
             'teacherid' => $_POST['teacherId'],
             'subject' => $_POST['subject'],
-            'releasedate' => trim(gmdate('Y-m-d',(int)$_POST['releaseDate'])),
-            'duedate' => trim(gmdate('Y-m-d',(int)$_POST['dueDate'])),
+            'releasedate' => $_POST['releaseDate'],
+            'duedate' => $_POST['dueDate'],
             'body' => $_POST['body']
         ];
 

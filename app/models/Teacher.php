@@ -1,9 +1,13 @@
 <?php
 class Teacher {
+
     private $db;
+
     public function __construct() {
         $this->db = new Database;
     }
+
+
     // add new announcement
     public function addAnnouncement($data) {
         $this->db->query("INSERT INTO announcements (teacherid, date, body) VALUES(:teacherid, current_timestamp, :body)");
@@ -17,6 +21,8 @@ class Teacher {
             return false;
         }
     }
+
+
     // update announcement
     public function updateAnnouncement($data) {
         $this->db->query("UPDATE announcements set teacherid = :teacherid, date = CURRENT_DATE, body = :body WHERE id = :id");
@@ -31,6 +37,8 @@ class Teacher {
             return false;
         }
     }
+
+
     // delete announcement
     public function deleteAnnouncement($id) {
         $this->db->query("DELETE FROM announcements WHERE id = :id");
@@ -43,6 +51,8 @@ class Teacher {
             return false;
         }
     }
+
+
     // add new assignment
     public function addAssignment($data) {
         $this->db->query("INSERT INTO assignments (teacherid, subject, releasedate, duedate, body) VALUES(:teacherid, :subject, :releasedate, :duedate, :body)");
@@ -59,6 +69,8 @@ class Teacher {
             return false;
         }
     }
+
+
     // update assignment
     public function updateAssignment($data) {
         $this->db->query("UPDATE assignments SET teacherid = :teacherid, subject = :subject, releasedate = :releasedate, duedate = :duedate, body = :body WHERE id = :id");
@@ -76,6 +88,8 @@ class Teacher {
             return false;
         }
     }
+
+
     // delete announcement
     public function deleteAssignment($id) {
         $this->db->query("DELETE FROM assignments WHERE id = :id");
@@ -88,6 +102,8 @@ class Teacher {
             return false;
         }
     }
+
+
     // list of assignments by TeacherID
     public function listAssignments($id) {
         $this->db->query("SELECT * FROM assignments WHERE teacherid = :id");
@@ -95,6 +111,8 @@ class Teacher {
         $this->db->bind(':id', $id);
         return $this->db->resultSet();
     }
+
+
     // list of student submissions for AssignmentID
     public function listSubmissions($id) {
         $this->db->query("SELECT st.id, st.id as stID, st.name, n.* FROM students st LEFT JOIN (SELECT * FROM submissions s WHERE s.assignmentid = :id) AS n ON st.id = n.studentid ORDER BY st.name");
@@ -102,6 +120,8 @@ class Teacher {
         $this->db->bind(':id', $id);
         return $this->db->resultSet();
     }
+
+
     // update submission grade
     public function updateSubmission($data) {
         $this->db->query("UPDATE submissions set grade = :grade WHERE id = :id");
