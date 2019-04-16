@@ -149,5 +149,6 @@
      Updates Submission record with grade
      
      Input data:
-     - SubmissionID (int)
+     - assignmentid (int)
+     - studentid (int) - (TODO change both above to one SubmissionID)
      - grade (float)

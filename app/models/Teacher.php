@@ -124,10 +124,11 @@ class Teacher {
 
     // update submission grade
     public function updateSubmission($data) {
-        $this->db->query("UPDATE submissions set grade = :grade WHERE id = :id");
+        $this->db->query("UPDATE submissions set grade = :grade WHERE studentid = :studentid && assignmentid = :assignmentid");
         // Bind values
         $this->db->bind(':grade', $data['grade']);
-        $this->db->bind(':id', $data['id']);
+        $this->db->bind(':studentid', $data['studentid']);
+        $this->db->bind(':assignmentid', $data['assignmentid']);
         if($this->db->execute()){
             return true;
         } else {

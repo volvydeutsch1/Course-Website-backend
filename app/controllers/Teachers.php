@@ -166,7 +166,8 @@ class Teachers extends Controller {
 
         // Init data
         $data = [
-            'id' => $_POST['id'],
+            'studentid' => $_POST['studentid'],
+            'assignmentid' => $_POST['assignmentid'],
             'grade' => trim($_POST['grade'])
         ];
 
